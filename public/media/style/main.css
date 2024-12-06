@@ -114,9 +114,16 @@ img.logo {
 }
 
 .head_container {
+    display: flex;
     padding: 10px;
     background-color: #535353;
     margin-bottom: 6px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.head_btn img {
+    cursor: pointer;
 }
 
 .board {
