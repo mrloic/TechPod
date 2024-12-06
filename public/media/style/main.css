@@ -1,3 +1,17 @@
+@font-face {
+	font-family: "Montserrat-Regular"; 
+	src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: "Montserrat-Bold"; 
+	src: url("../fonts/Montserrat-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -5,6 +19,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Montserrat-Bold";
 }
 
 a {
@@ -167,15 +182,27 @@ div#card * {
     background-color: #74a3a9;
 }
 
-.date {
+#dateLimit {
     padding: 3px;
-    background-color: #1c9d20;  /* #535353 || #AA0000 */
+    /* background-color: #1c9d20;  #535353 || #AA0000 */
     width: 100px;
     border-radius: 8px;
     text-align: center;
 }
 
-.date span {
+.bg-today {
+    background-color: #1c9d20;
+}
+
+.bg-past {
+    background-color: #AA0000;
+}
+
+.bg-future {
+    background-color: #535353;
+}
+
+#dateLimit span {
     color: #fff !important;
 }
 

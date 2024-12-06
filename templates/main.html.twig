@@ -19,16 +19,66 @@
                         <img src="/media/img/mini_plus.svg" alt="plus">
                     </div>
                 </div>
-                <div class="card" id="card">
-                    <div class="hr"></div>
-                    <span class="card-span">Задача 1</span>
-                    <div class="profile_card">
-                        <img src="media/img/profile.svg" alt="profile" class="profile_img">
-                        <div class="date">
-                            <span>5 дек.</span>
+                {% for item in work_items %}
+                    {% if item.status == 'unassembled' %}
+                        <div class="card" id="card">
+                            <div class="hr" style="width: 25%;"></div>
+                            <span class="card-span">Задача №{{ item.work_number }}</span>
+                            <div class="profile_card">
+                                <img src="media/img/profile.svg" alt="profile" class="profile_img">
+                                <div id="dateLimit" class="{{ item.background_class }}">
+                                    <span id="spanDate">{{ item.formatted_time_limit_rus }}</span>
+                                </div>
+                            </div>
                         </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="board">
+                <div class="head_board">
+                    <span>Выполняется</span>
+                    <div class="board_btn">
+                        <img src="/media/img/menu.svg" alt="menu">
+                        <img src="/media/img/mini_plus.svg" alt="plus">
                     </div>
                 </div>
+                {% for item in work_items %}
+                    {% if item.status == 'work' %}
+                        <div class="card" id="card">
+                            <div class="hr" style="width: 50%;"></div>
+                            <span class="card-span">Задача №{{ item.work_number }}</span>
+                            <div class="profile_card">
+                                <img src="media/img/profile.svg" alt="profile" class="profile_img">
+                                <div id="dateLimit" class="{{ item.background_class }}">
+                                    <span id="spanDate">{{ item.formatted_time_limit_rus }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="board">
+                <div class="head_board">
+                    <span>Готово</span>
+                    <div class="board_btn">
+                        <img src="/media/img/menu.svg" alt="menu">
+                        <img src="/media/img/mini_plus.svg" alt="plus">
+                    </div>
+                </div>
+                {% for item in work_items %}
+                    {% if item.status == 'done' %}
+                        <div class="card" id="card">
+                            <div class="hr" style="width: 100%;"></div>
+                            <span class="card-span">Задача №{{ item.work_number }}</span>
+                            <div class="profile_card">
+                                <img src="media/img/profile.svg" alt="profile" class="profile_img">
+                                <div id="dateLimit" class="{{ item.background_class }}">
+                                    <span id="spanDate">{{ item.formatted_time_limit_rus }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
