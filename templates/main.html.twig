@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="main">
+    <div class="boardsContainer">
+        <div class="head_container">
+            <span>В работе</span>
+        </div>
+        <div class="content_board">
+            <div class="board">
+                <div class="head_board">
+                    <span>Неразобранное</span>
+                    <div class="board_btn">
+                        <img src="/media/img/menu.svg" alt="menu">
+                        <img src="/media/img/mini_plus.svg" alt="plus">
+                    </div>
+                </div>
+                <div class="card" id="card">
+                    <div class="hr"></div>
+                    <span class="card-span">Задача 1</span>
+                    <div class="profile_card">
+                        <img src="media/img/profile.svg" alt="profile" class="profile_img">
+                        <div class="date">
+                            <span>5 дек.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

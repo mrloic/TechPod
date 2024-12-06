@@ -1,0 +1,17 @@
+{
+    "name": "mr_loic/tech-pod",
+    "description": "University IT Support Service",
+    "autoload": {
+        "psr-4": {
+            "MrLoic\\TechPod\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "т"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.16"
+    }
+}
