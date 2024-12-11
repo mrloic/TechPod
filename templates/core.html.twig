@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title|default('Tech Pod') }}</title>
+    <link rel="stylesheet" href="/media/style/main.css">
+    <link rel="icon" href="media/img/logo.svg" type="image/x-icon">
+    <meta name="description" content="Tech Pod Website">
+    <meta name="keywords" content="Tech Pod, Technology, Innovation">
+</head>
+<body class="background">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    <main>
+        <div class="container_sign">
+            <div class="bg" style="
+    background-image: url(media/img/bg_sign.svg);">
+                {# <img class="bg_sign" src="media/img/bg_sign.svg" alt="bg"> #}
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    <script src="media/script/script.js"></script>
+</body>
+</html>

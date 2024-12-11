@@ -1,0 +1,24 @@
+{% extends 'core.html.twig' %}
+
+{% block content %}
+    <div class="login_form">
+        <div class="head_form">
+            <div class="logo_rg">
+                <img src="/media/img/logo.svg" alt="Logo" class="logo">
+            </div>
+            <h2 class="span_login">Регистрация</h2>
+        </div>
+        <form action="/register" method="post">
+            <div class="form_group">
+                <input type="text" id="username" name="username" placeholder="Логин" required>
+            </div>
+            <div class="form_group">
+                <input type="password" id="password" name="password" placeholder="Пароль" required>
+            </div>
+            <div class="form_group">
+                <button type="submit">Зарегистрироваться</button>
+            </div>
+        </form>
+        <a href="/login">ВХОД</a>
+    </div>
+{% endblock %}

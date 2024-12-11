@@ -1,28 +1,29 @@
 <?php
-function fetchApiData($url) {
-    // Используем cURL для выполнения запроса
+function fetchApiData($url, $token) {
     $ch = curl_init();
-    
-    // Настройки cURL
-    curl_setopt($ch, CURLOPT_URL, $url);          // Устанавливаем URL
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Возвращать ответ в виде строки
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',       // Устанавливаем заголовок
-    ]);
-    
-    $response = curl_exec($ch); // Выполняем запрос
-    
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $token]);
+
+    $response = curl_exec($ch);
+
     if (curl_errno($ch)) {
-        echo 'Ошибка cURL: ' . curl_error($ch); // Обрабатываем ошибки
+        error_log('Ошибка cURL: ' . curl_error($ch)); // Логируем ошибку
         curl_close($ch);
         return null;
     }
-    
+
     curl_close($ch);
-    
-    // Декодируем JSON
+
     $data = json_decode($response, true);
-    
+
+    // Проверяем, что данные корректны
+    if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+        error_log('Ошибка декодирования JSON: ' . json_last_error_msg());
+        return null;
+    }
+
     return $data;
 }
 

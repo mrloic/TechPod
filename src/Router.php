@@ -5,10 +5,16 @@ require_once 'API.php';
 
 class Router {
     public static function route($uri) {
+        session_start();
         $app = new App();
 
         $url = "http://localhost:8801/api/WorkItems/GetWork";
-        $data = fetchApiData($url);
+        $data = fetchApiData($url, $_SESSION['token']);
+
+        if (!is_array($data)) {
+            $data = []; // Устанавливаем пустой массив, если данные некорректны
+            error_log('Получены некорректные данные из API: ' . $url);
+        }
 
         foreach ($data as &$item) {
             $item['formatted_time_limit'] = formatDate($item['time_limit']);
@@ -19,11 +25,33 @@ class Router {
 
         switch ($uri) {
             case '/':
-                $app->render('main.html.twig', ['title' => 'Главная страница', 'work_items' => $data]);
+                
+                if (!isset($_SESSION['token'])) {
+                    header('Location: /login');
+                    exit;
+                }
+                $app->render('main.html.twig', [
+                    'title' => 'Главная страница',
+                    'work_items' => $data,
+                    'error' => empty($data) ? 'Не удалось загрузить данные. Попробуйте позже.' : null,
+                ]);
                 break;
 
-            case '/about':
-                $app->render('base.html.twig', ['title' => 'О проекте']);
+            case '/login':
+                $app->render('login.html.twig', ['title' => 'Вход']);
+                break;
+
+            case '/process_login':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    require_once 'process_login.php';
+                } else {
+                    http_response_code(405); // Метод не поддерживается
+                    $app->render('405.html.twig', ['title' => 'Метод не поддерживается']);
+                }
+                break;
+                
+            case '/register':
+                $app->render('register.html.twig', ['title' => 'Регистрация']);
                 break;
 
             default:
