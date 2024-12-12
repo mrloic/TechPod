@@ -49,10 +49,6 @@ class Router {
                     $app->render('405.html.twig', ['title' => 'Метод не поддерживается']);
                 }
                 break;
-                
-            case '/register':
-                $app->render('register.html.twig', ['title' => 'Регистрация']);
-                break;
 
             default:
                 http_response_code(404);

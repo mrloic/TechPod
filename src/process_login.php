@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Получаем данные из формы
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
+$passwordHash = hash('sha256', $password);
+error_log('Пароль: ' . $password);
+error_log('хэш Пароль: ' . $passwordHash);
 
 // Проверяем заполненность
 if (empty($username) || empty($password)) {
@@ -24,14 +27,15 @@ if (empty($username) || empty($password)) {
 $apiUrl = 'http://localhost:8801/api/JWT/login';
 $postData = json_encode([
     'Username' => $username,
-    'Password' => $password,
-    'model' => 'some_value'
+    'Password' => $passwordHash,
+    // 'model' => 'some_value'
 ]);
 
 // Инициализируем cURL
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $apiUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['accept: */*']);
 curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
