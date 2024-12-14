@@ -8,24 +8,21 @@ class Router {
         session_start();
         $app = new App();
 
-        $url = "http://localhost:8801/api/WorkItems/GetWork";
-        $data = fetchApiData($url, $_SESSION['token']);
-
-        if (!is_array($data)) {
-            $data = []; // Устанавливаем пустой массив, если данные некорректны
-            error_log('Получены некорректные данные из API: ' . $url);
-        }
-
-        foreach ($data as &$item) {
-            $item['formatted_time_limit'] = formatDate($item['time_limit']);
-            $item['formatted_time_limit_rus'] = formatDateRus($item['time_limit']);
-            $item['background_class'] = getBackgroundClass($item['formatted_time_limit']);
-        }
-        unset($item);
-
         switch ($uri) {
             case '/':
-                
+                $data = fetchApiData('work.get_all', null, 'GET', null, $_SESSION['token']);
+                if (!is_array($data)) {
+                    $data = []; // Устанавливаем пустой массив, если данные некорректны
+                    error_log('Получены некорректные данные из API');
+                }
+        
+                foreach ($data as &$item) {
+                    $item['formatted_time_limit'] = formatDate($item['time_limit']);
+                    $item['formatted_time_limit_rus'] = formatDateRus($item['time_limit']);
+                    $item['background_class'] = getBackgroundClass($item['formatted_time_limit']);
+                }
+                unset($item);
+
                 if (!isset($_SESSION['token'])) {
                     header('Location: /login');
                     exit;
@@ -52,7 +49,7 @@ class Router {
 
             default:
                 http_response_code(404);
-                $app->render('404.html.twig', ['title' => 'Ошибка 404', 'content' => 'Страница не найдена.']);
+                $app->render('404.html.twig', ['title' => 'Ошибка 404']);
         }
     }
 }
