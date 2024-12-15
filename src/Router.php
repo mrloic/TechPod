@@ -5,11 +5,18 @@ require_once 'API.php';
 
 class Router {
     public static function route($uri) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }        
         $app = new App();
 
         switch ($uri) {
             case '/':
+                if (!isset($_SESSION['token'])) {
+                    header('Location: /login');
+                    exit;
+                }
+
                 $data = fetchApiData('work.get_all', null, 'GET', null, $_SESSION['token']);
                 if (!is_array($data)) {
                     $data = []; // Устанавливаем пустой массив, если данные некорректны
@@ -23,10 +30,6 @@ class Router {
                 }
                 unset($item);
 
-                if (!isset($_SESSION['token'])) {
-                    header('Location: /login');
-                    exit;
-                }
                 $app->render('main.html.twig', [
                     'title' => 'Главная страница',
                     'work_items' => $data,
@@ -46,6 +49,25 @@ class Router {
                     $app->render('405.html.twig', ['title' => 'Метод не поддерживается']);
                 }
                 break;
+
+            case '/api/employees':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $response = fetchApiData('employees.add', null, 'POST', $data, $_SESSION['token']);
+                    echo json_encode($response);
+                } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+                    $uriParts = explode('/', trim($uri, '/'));
+                    $id = end($uriParts);
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $response = fetchApiData('employees.update', $id, 'PUT', $data, $_SESSION['token']);
+                    echo json_encode($response);
+                } else {
+                    $employees = fetchApiData('employees.get_all', null, 'GET', null, $_SESSION['token']);
+                    echo json_encode($employees);
+                }
+                exit;
+                
+                
 
             default:
                 http_response_code(404);

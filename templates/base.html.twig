@@ -13,7 +13,9 @@
     <header>
         <div class="header">
             <div class="profile">
-                <img src="/media/img/profile_1.svg" alt="Profile Logo" class="profile_logo">
+                <div class="profile_logo" role="button">
+                    <img src="/media/img/profile_1.svg" alt="Profile Logo">
+                </div>
             </div>
             <div class="search_bar">
                 <input type="search" class="search_input" placeholder="Текст для поиска">
@@ -34,6 +36,54 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <div class="sidebar">
+        <div class="sidebar_header">
+            <span>Список сотрудников</span>
+            <button class="add_employee">
+                <img src="/media/img/mini_plus.svg" alt="Add Employee Icon" class="add_employee_icon">
+            </button>
+            <button class="close_sidebar">
+                <img src="/media/img/cross.svg" alt="Close Sidebar Icon" class="close_sidebar_icon">
+            </button>
+        </div>
+        <ul class="sidebar_list">
+            <!-- Список сотрудников будет загружен сюда -->
+        </ul>
+    </div>
+
+    <!-- Модальное окно для добавления сотрудника -->
+    <div class="modal" id="addEmployeeModal">
+        <div class="modal_content">
+            <span class="close_modal" id="closeAddEmployeeModal">&times;</span>
+            <h3>Добавить сотрудника</h3>
+            <form id="addEmployeeForm">
+                <input type="text" name="first_name" placeholder="Имя" required>
+                <input type="text" name="last_name" placeholder="Фамилия" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="phone" placeholder="Телефон" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования сотрудника -->
+    <div class="modal" id="editEmployeeModal">
+        <div class="modal_content">
+            <span class="close_modal" id="closeEditEmployeeModal">&times;</span>
+            <h3>Редактировать сотрудника</h3>
+            <form id="editEmployeeForm">
+                <input type="hidden" name="id">
+                <input type="text" name="first_name" placeholder="Имя" required>
+                <input type="text" name="last_name" placeholder="Фамилия" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="phone" placeholder="Телефон" required>
+                <button type="submit">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+
     <script src="media/script/script.js"></script>
 </body>
 </html>
