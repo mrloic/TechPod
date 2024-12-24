@@ -34,6 +34,20 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+    <div class="side_menu hidden" id="sideMenu">
+        <button id="addEmployeeBtn" class="menu_btn">
+            <img src="/media/img/add_employee.svg" alt="Добавить">
+        </button>
+        <ul id="employeeList" class="menu_list"></ul>
+    </div>
+    <div class="modal hidden" id="addTaskModal">
+        <div class="modal_content">
+            <form id="addTaskForm">
+                <textarea name="description" placeholder="Описание задачи" required></textarea>
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
     <script src="media/script/script.js"></script>
 </body>
 </html>

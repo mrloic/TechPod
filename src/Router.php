@@ -46,7 +46,69 @@ class Router {
                     $app->render('405.html.twig', ['title' => 'Метод не поддерживается']);
                 }
                 break;
-
+            
+            case '/api/employees':
+                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    header('Content-Type: application/json');
+            
+                    // Получаем данные сотрудников из API
+                    try {
+                        $data = fetchApiData('employees.get_all', null, 'GET', null, $_SESSION['token']);
+                        if ($data) {
+                            echo json_encode($data);
+                        } else {
+                            http_response_code(500);
+                            echo json_encode(['error' => 'Ошибка получения данных сотрудников']);
+                        }
+                    } catch (Exception $e) {
+                        http_response_code(500);
+                        echo json_encode(['error' => $e->getMessage()]);
+                    }
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Метод не поддерживается']);
+                }
+                break;
+                
+            case '/api/add_task':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    header('Content-Type: application/json');
+                    $input = json_decode(file_get_contents('php://input'), true);
+            
+                    if (!isset($input['description'], $input['status'])) {
+                        http_response_code(400);
+                        echo json_encode(['error' => 'Некорректные данные']);
+                        exit;
+                    }
+            
+                    try {
+                        $result = fetchApiData(
+                            'work.add',
+                            null,
+                            'POST',
+                            [
+                                'description' => $input['description'],
+                                'status' => $input['status']
+                            ],
+                            $_SESSION['token']
+                        );
+            
+                        if ($result) {
+                            echo json_encode($result);
+                        } else {
+                            http_response_code(500);
+                            echo json_encode(['error' => 'Ошибка добавления задачи']);
+                        }
+                    } catch (Exception $e) {
+                        http_response_code(500);
+                        echo json_encode(['error' => $e->getMessage()]);
+                    }
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Метод не поддерживается']);
+                }
+                break;
+                
             default:
                 http_response_code(404);
                 $app->render('404.html.twig', ['title' => 'Ошибка 404']);
