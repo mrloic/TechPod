@@ -60,6 +60,7 @@ div.header {
 .profile {
     justify-items: center;
     align-content: center;
+    cursor: pointer;
 }
 
 .profile img.profile_logo {
@@ -316,19 +317,27 @@ img.profile_img {
     background: none;
     border: none;
     cursor: pointer;
-    margin-bottom: 15px;
+    height: 30px;
 }
 
 .menu_list {
     list-style: none;
     padding: 0;
+    margin-top: 15px;
 }
 
 .menu_list li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
+    border-bottom: 1px solid #ffffff;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.menu_list li:first-child {
+    border-top: 1px solid #ffffff;
 }
 
 .menu_list li img {
@@ -349,8 +358,60 @@ img.profile_img {
 }
 
 .modal_content {
-    background-color: #FFF;
+    background-color: #777474;
     padding: 20px;
     border-radius: 10px;
     width: 400px;
+    text-align: end;
+}
+
+.side_menu_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+button#addEmployeeBtn {
+    display: flex;
+    align-items: center;
+}
+
+form#addEmployeeForm input {
+    padding: 10px 5px;
+    margin: 5px 0;
+    border-radius: 15px;
+    border: 2px solid #313131;
+}
+
+form#addEmployeeForm {
+    text-align: center;
+}
+
+.add_employee_btn {
+    background-color: #FFF;
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-top: 5px;
+    cursor: pointer;
+    border: 2px solid #313131;
+    width: 67%;
+}
+
+h2 {
+    color: #FFF;
+}
+
+select.modal_select {
+    width: 67%;
+    padding: 10px 5px;
+    margin: 5px 0;
+    border-radius: 15px;
+    border: 2px solid #313131;
+}
+
+button#closeAddEmployeeModalBtn {
+    position: fixed;
+    left: calc(50vw + 169px);
+    top: calc(50vh - 214px);
 }

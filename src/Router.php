@@ -1,11 +1,22 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'App.php';
 require_once 'API.php';
 
 class Router {
     public static function route($uri) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Проверяем сессию перед выбором маршрута
+        if (!isset($_SESSION['token']) && $uri !== '/login' && $uri !== '/process_login') {
+            header('Location: /login');
+            exit;
+        }
+        
         $app = new App();
 
         switch ($uri) {
@@ -23,10 +34,6 @@ class Router {
                 }
                 unset($item);
 
-                if (!isset($_SESSION['token'])) {
-                    header('Location: /login');
-                    exit;
-                }
                 $app->render('main.html.twig', [
                     'title' => 'Главная страница',
                     'work_items' => $data,

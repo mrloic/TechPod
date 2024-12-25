@@ -34,10 +34,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const sideMenu = document.getElementById('sideMenu');
     const addEmployeeBtn = document.getElementById('addEmployeeBtn');
     const employeeList = document.getElementById('employeeList');
+    const closeSideMenuBtn = document.getElementById('closeSideMenuBtn');
+    const addEmployeeModal = document.getElementById('addEmployeeModal');
+    const addEmployeeModalContent = document.getElementById('addEmployeeModalContent');
+    const closeAddEmployeeModalBtn = document.getElementById('closeAddEmployeeModalBtn');
+    // Добавляем обработчик клика на документ
+    document.addEventListener('click', (e) => {
+        // Проверяем, что клик был не по самому меню и не по кнопке профиля
+        if (!sideMenu.contains(e.target) && !profile.contains(e.target)) {
+            sideMenu.classList.add('hidden');
+        }
+    });
 
     profile.addEventListener('click', () => {
         sideMenu.classList.toggle('hidden');
         loadEmployees();
+    });
+
+    closeSideMenuBtn.addEventListener('click', () => {
+        sideMenu.classList.add('hidden');
+    });
+
+    addEmployeeBtn.addEventListener('click', () => {
+        sideMenu.classList.add('hidden');
+        addEmployeeModal.classList.remove('hidden');
+    });
+
+    closeAddEmployeeModalBtn.addEventListener('click', () => {
+        addEmployeeModal.classList.add('hidden');
+    });
+
+    addEmployeeModal.addEventListener('click', (e) => {
+        if (!addEmployeeModalContent.contains(e.target) && !closeAddEmployeeModalBtn.contains(e.target)) {
+            addEmployeeModal.classList.add('hidden');
+        }
     });
 
     // Добавляем делегирование событий для кнопок редактирования
@@ -61,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <li data-employee-id="${employee.id}">
                     <span>${employee.last_name} ${employee.first_name}</span>
                     <button class="menu_btn">
-                        <img src="/media/img/edit_employee.svg" alt="Редактировать">
+                        <img src="/media/img/edit.svg" alt="Редактировать">
                     </button>
                 </li>
             `).join('');

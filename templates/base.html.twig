@@ -35,10 +35,101 @@
         {% block content %}{% endblock %}
     </main>
     <div class="side_menu hidden" id="sideMenu">
+        <div class="side_menu_header">
+            <span>Список сотрудников</span>
+            <button id="closeSideMenuBtn" class="menu_btn">
+                <img src="/media/img/close.svg" alt="Закрыть">
+            </button>
+        </div>
         <button id="addEmployeeBtn" class="menu_btn">
-            <img src="/media/img/add_employee.svg" alt="Добавить">
+            <span>Добавить сотрудника</span>
+            <img src="/media/img/mini_plus.svg" alt="Добавить">
         </button>
         <ul id="employeeList" class="menu_list"></ul>
+    </div>
+    <div class="modal hidden" id="addEmployeeModal">
+        <div class="modal_content" id="addEmployeeModalContent">
+            <button id="closeAddEmployeeModalBtn" class="menu_btn">
+                <img src="/media/img/close.svg" alt="Закрыть">
+            </button>
+            <form id="addEmployeeForm">
+                <h2>Добавление сотрудника</h2>
+                <div class="modal_input">
+                    <input type="text" name="last_name" placeholder="Фамилия" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="first_name" placeholder="Имя" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="middle_name" placeholder="Отчество" required>
+                </div>
+                <div class="modal_input">
+                    <select class="modal_select" name="role" required>
+                        <option value="">Выберите роль</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Manager">Manager</option>
+                        <option value="User">User</option>
+                    </select>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="email" placeholder="Email" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="password" placeholder="Пароль" required>
+                </div>
+                <div class="modal_input">
+                    <button type="submit" class="add_employee_btn">Добавить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal hidden" id="editEmployeeModal">
+        <div class="modal_content">
+            <form id="editEmployeeForm">
+                <h2>Редактирование сотрудника</h2>
+                <div class="modal_input">
+                    <input type="text" name="last_name" placeholder="Фамилия" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="first_name" placeholder="Имя" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="middle_name" placeholder="Отчество" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="division" placeholder="Должность" required>
+                </div>
+                <div class="modal_input">
+                    <select class="modal_select" name="role" required>
+                        <option value="">Выберите роль</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Manager">Manager</option>
+                        <option value="User">User</option>
+                    </select>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="email" placeholder="Email" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="phone" placeholder="Телефон" required>
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="work_amount" placeholder="Количество работ">
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="salary" placeholder="Зарплата">
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="status" placeholder="Статус">
+                </div>
+                <div class="modal_input">
+                    <input type="text" name="password" placeholder="Пароль" required>
+                </div>
+                <div class="modal_input">
+                    <button type="submit" class="add_employee_btn">Добавить</button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="modal hidden" id="addTaskModal">
         <div class="modal_content">
